@@ -1,23 +1,23 @@
+import dotenv from "dotenv";
 import express from 'express';
-import connectDB from './db/index.js';
+import connectDB from "./db/index.js";
+
+dotenv.config();
 
 const app = express(); 
 
-// Connect to MongoDB Atlas
-connectDB()
-.then(() => {
-    app.listen(process.env.PORT || 3001, () =>{
-        console.log(`Server is running at port: ${process.env.PORT}`);
-    })
-})
-.catch((err) =>{
-    console.log("MONGO db connection failed", err)
-})
 
-// Define routes and other middleware here
 
-// Start the server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+const start = async () => {
+  try {
+    await connectDB("mongodb+srv://bhupendrau6:Hitit3060@cluster0.rnzlpm6.mongodb.net")
+    console.log('Success!!!!')
+    process.exit(0)
+  } catch (error) {
+    console.log(error)
+    process.exit(1)
+  }
+}
+
+start()
